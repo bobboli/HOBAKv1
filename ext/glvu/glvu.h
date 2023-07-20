@@ -28,7 +28,7 @@
 #if _WIN32
 #include <GL/glut.h>
 #define _USE_MATH_DEFINES
-#include <math.h>  // For definition of M_PI
+#define M_PI       3.14159265358979323846   // pi
 #elif __APPLE__
 #include <GL/glut.h>
 #elif __linux__

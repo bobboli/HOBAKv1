@@ -26,8 +26,7 @@ std::mt19937 gen(123);
 std::uniform_real_distribution<REAL> dist(0.0, 1.0);
 
 #if _WIN32
-#define _USE_MATH_DEFINES
-#include <math.h>
+#define M_PI       3.14159265358979323846   // pi
 #endif
 
 
