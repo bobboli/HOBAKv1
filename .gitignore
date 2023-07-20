@@ -1,2 +1,4 @@
 /projects/simulateScene/build
 .vscode
+Debug
+RelWithDebInfo

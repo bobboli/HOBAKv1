@@ -84,7 +84,7 @@ else()
 endif()
 target_link_libraries(${PROJECT_NAME} ${FREEGLUT_LIB})
 # Set the output directory for the executable
-set(BIN_DIR "${CMAKE_SOURCE_DIR}/../../bin")
+set(BIN_DIR "${CMAKE_SOURCE_DIR}/../../")
 set_target_properties(${PROJECT_NAME} PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${BIN_DIR} # Change this to your desired output directory
 )
