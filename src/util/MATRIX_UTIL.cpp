@@ -25,6 +25,12 @@ IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY O
 std::mt19937 gen(123);
 std::uniform_real_distribution<REAL> dist(0.0, 1.0);
 
+#if _WIN32
+#define _USE_MATH_DEFINES
+#include <math.h>
+#endif
+
+
 namespace HOBAK {
 
 ///////////////////////////////////////////////////////////////////////

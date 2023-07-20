@@ -20,8 +20,8 @@ IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY O
 
 using namespace std;
 
-timeval TIMER::_tick;
-timeval TIMER::_tock;
+TIMER::time_point TIMER::_tick;
+TIMER::time_point TIMER::_tock;
 std::map<std::string, double> TIMER::_timings;
 std::stack<std::string> TIMER::_callStack;
 
@@ -36,13 +36,13 @@ TIMER::TIMER(string blockName)
   if (_callStack.size() > 0)
   {
     string function = _callStack.top();
-    gettimeofday(&_tock, 0);
+    _tock = time_clock::now();
 
     _timings[function] += timing();
   }
   
   _callStack.push(blockName);
-  gettimeofday(&_tick, 0);
+  _tick = time_clock::now();
 
   _stopped = false;
 }
@@ -70,10 +70,10 @@ void TIMER::stop()
   
   string function = _callStack.top();
   _callStack.pop();
-  gettimeofday(&_tock, 0);
+  _tock = time_clock::now();
 
   _timings[function] += timing();
-  gettimeofday(&_tick, 0);
+  _tick = time_clock::now();
 
   _stopped = true;
 }
@@ -82,8 +82,7 @@ void TIMER::stop()
 ///////////////////////////////////////////////////////////////////////
 void TIMER::printTimings()
 {
-  timeval now;
-  gettimeofday(&now, 0);
+	time_point now = time_clock::now();
 
   double currentTimer = timing(_tick, now);
   string currentName;
@@ -132,8 +131,7 @@ void TIMER::printTimings()
 ///////////////////////////////////////////////////////////////////////
 void TIMER::printTimingsPerFrame(const int frames)
 {
-  timeval now;
-  gettimeofday(&now, 0);
+  time_point now = time_clock::now();
 
   double currentTimer = timing(_tick, now);
   string currentName;

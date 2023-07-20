@@ -22,7 +22,7 @@ IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY O
 #include <map>
 #include <stack>
 
-#include <sys/time.h>
+#include <chrono>
 
 // To time a function, just put:
 //
@@ -32,6 +32,8 @@ IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY O
 
 class TIMER
 {
+    using time_clock = std::chrono::high_resolution_clock;
+    using time_point = std::chrono::time_point<time_clock>;
 public:
   // start the timer by default -- if a tick is called later,
   // it will just stomp it
@@ -41,10 +43,8 @@ public:
   // stop the timer manually
   void stop();
 
-  static double timing(timeval& begin = _tick, timeval& end  = _tock) {
-    double beginTime = (double)begin.tv_sec + 1e-6 * begin.tv_usec;
-    double endTime = (double)end.tv_sec + 1e-6 * end.tv_usec;
-    return endTime - beginTime;
+  static double timing(time_point& begin = _tick, time_point& end  = _tock) {
+    return std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() * 1e-6;
   };
   static int hours(int seconds) { return seconds / (60 * 60); };
   static int minutes(int seconds) {
@@ -61,8 +61,8 @@ public:
 
 private:
   // begin and end of current block being timed
-  static timeval _tick;
-  static timeval _tock;
+  static time_point _tick;
+  static time_point _tock;
 
   // hash table of all timings
   static std::map<std::string, double> _timings;

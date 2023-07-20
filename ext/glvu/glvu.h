@@ -25,7 +25,11 @@
 #include <stdlib.h>
 #include <time.h>            // FOR TIMED PATH PLAYBACK (glvu_camview)
 #include <sys/timeb.h>       // FOR FRAME TIMING (glvu_camview)
-#if __APPLE__
+#if _WIN32
+#include <GL/glut.h>
+#define _USE_MATH_DEFINES
+#include <math.h>  // For definition of M_PI
+#elif __APPLE__
 #include <GL/glut.h>
 #elif __linux__
 #include <GL/glut.h>
