@@ -83,6 +83,12 @@ else()
     set(FREEGLUT_DLL "${CMAKE_SOURCE_DIR}/../../ext/freeglut/bin/freeglut.dll")
 endif()
 target_link_libraries(${PROJECT_NAME} ${FREEGLUT_LIB})
+# Set the output directory for the executable
+set(BIN_DIR "${CMAKE_SOURCE_DIR}/../../bin")
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY ${BIN_DIR} # Change this to your desired output directory
+)
+
 # Copy the dll next to exe... That lib is only an import library.
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
 COMMAND ${CMAKE_COMMAND} -E copy_if_different
